@@ -1,5 +1,6 @@
-import { create, useStore } from "zustand";
+import { create, State, StateCreator, useStore } from "zustand";
 import { generatedId } from "../../data/helpers";
+import { devtools } from "zustand/middleware";
 
 interface Task {
     id: string;
@@ -15,14 +16,31 @@ interface TodoStore {
     clearTasks: () => void;
 }
 
-export const useTodoStore = create<TodoStore>((set, get) => ({
-    tasks: [
-        {
-            id: "asd3ff45tfg4tg4343",
-            title: "Моя дефолтная таска",
-            createdAt: 2313123
-        }
-    ],
+function isTodoStore(object: any): object is TodoStore {
+    return "tasks" in object;
+}
+
+const localStorageUpdate = <T extends State>(config: StateCreator<T>): StateCreator<T> => (set, get, api) => config((nextState, ...args) => {
+    if(isTodoStore(nextState)) {
+        window.localStorage.setItem("tasks", JSON.stringify(nextState.tasks));
+    }
+
+    set(nextState, ...args);
+}, get, api);
+
+const getCurrentState = () => {
+    try {
+        const currentState = (JSON.parse(window.localStorage.getItem("tasks") || "[]")) as Task[] ;
+        return currentState;
+    } catch (error) {
+        window.localStorage.setItem("tasks", JSON.stringify("[]"));
+    }
+
+    return [];
+};
+
+export const useTodoStore = create(devtools<TodoStore>(localStorageUpdate((set, get) => ({
+    tasks: getCurrentState(),
     createTask: (title) => {
         const { tasks } = get();
         const newTask = {
@@ -57,6 +75,6 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
             tasks: []
         });
     }
-}));
+}))));
 
 
