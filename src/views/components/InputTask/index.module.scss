@@ -1,0 +1,70 @@
+.inputTask {
+    display: grid;
+    grid-template-columns: 1fr repeat(2, 50px);
+    gap: 5px;
+    background-color: #dbe2ef;
+    border-radius: 5px;
+    padding-right: 15px;
+
+    &:not(:last-child) {
+        margin-bottom: 15px;
+
+    }
+
+    &Label {
+        font: 1rem sans-serif;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        padding: 12px 15px;
+        cursor: pointer;
+    }
+
+    &Checkbox {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+    
+    &Title {
+        padding: 5px;
+        line-height: 1.2;
+    }
+
+    &BtnEdit,
+    &BtnDelete,
+    &BtnSave {
+        display: block;
+        padding: 0;
+        border: 0;
+        background: none no-repeat center center;
+        background-size: 26px;
+        transition: opacity 0.3s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+
+    &BtnEdit {
+       background-image: url("./images/edit.png");
+    }
+
+    &BtnDelete {
+        background-image: url("./images/remove.png");
+    }
+
+    &BtnSave {
+        background-image: url("./images/save.png");
+    }
+
+    &InputEdit {
+        font: 1.18rem sans-serif;
+        font-weight: bold;
+        border: 0;
+        padding: 5px;
+        background: none;
+        box-shadow: 0 4px 0 -3px #3f72af;
+    }
+}

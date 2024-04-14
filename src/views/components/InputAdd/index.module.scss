@@ -1,0 +1,35 @@
+.inputAdd {
+    margin-bottom: 35px;
+    display: grid;
+    gap: 15px;
+    grid-template-columns: 1fr 45px;
+    width: 100%;
+
+    &Value {
+        border: 1px solid #b1b1b1;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        padding: 9px 10px;
+        font: 1rem/1.4 sans-serif;;
+        background-color: #dbe2ef;
+
+        &::placeholder {
+            color: #7b7b7b;
+        }
+    }
+
+    &Btn {
+        border-radius: 0;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border: none;
+        background: transparent url("./images/plus.png") no-repeat center center;
+        cursor: pointer;
+        transition: opacity .3s ease-in-out;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+}
+
